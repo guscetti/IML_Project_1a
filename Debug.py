@@ -28,10 +28,11 @@ def fit(X, y, lam):
     """
     #w = np.zeros((13,))
     # TODO: Enter your code here
-    clf = Ridge(alpha=lam)
-    clf.fit(X, y)
-    w = clf.coef_
-    assert w.shape == (13,)
+    X_t = X.transpose()
+    y_t = y.transpose()
+    XX_t = np.dot(X_t, X)
+    id = np.identity(len(XX_t))
+    w = np.dot(np.linalg.inv(XX_t + lam * id), np.dot(X_t, y))
     return w
 
 
